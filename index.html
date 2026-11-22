@@ -1127,5 +1127,12 @@ addEventListener('resize',fitMark);
 startReel();
 route();
 </script>
+<!-- GoatCounter visitor stats; the site switches pages by #, so each page change is counted too -->
+<script data-goatcounter="https://typehane.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+addEventListener('hashchange',()=>{
+  if(window.goatcounter&&window.goatcounter.count) window.goatcounter.count({path:location.pathname+(location.hash&&location.hash!=='#'?location.hash.slice(1):''),title:document.title});
+});
+</script>
 </body>
 </html>
