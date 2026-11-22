@@ -66,7 +66,7 @@ a.row:hover,a.row:focus-visible,a.card:hover,a.card:focus-visible,a.next:hover,a
 .mark span{display:inline-block}
 
 /* reel */
-.reel{position:relative;margin-top:clamp(14px,2vw,28px);aspect-ratio:16/8;max-width:100%;overflow:hidden;background:#000;cursor:pointer}
+.reel{position:relative;margin-top:clamp(14px,2vw,28px);width:58%;margin-inline:auto;aspect-ratio:4/3;max-width:100%;overflow:hidden;background:var(--ink);cursor:pointer}   /* a smaller centred frame */
 .reel .slides{position:absolute;inset:0}
 /* slideshow navigator: a thin vertical line on the right, one segment per project, the current one fills over 4 seconds */
 .reel-nav{position:absolute;right:clamp(10px,1.6vw,20px);top:12%;bottom:12%;width:36px;display:flex;flex-direction:column;gap:4px;z-index:4}
@@ -89,7 +89,7 @@ a.row:hover,a.row:focus-visible,a.card:hover,a.card:focus-visible,a.next:hover,a
 @keyframes wipe{from{clip-path:inset(0 0 0 100%)}to{clip-path:inset(0 0 0 0)}}
 @media (prefers-reduced-motion:reduce){.reel .slides figure.wipe{animation:none}.reel-nav button.on::after{animation:none;transform:scaleY(1)}}
 .reel.play .slides{opacity:1}
-.reel .slides figure{position:absolute;inset:0;margin:0;visibility:hidden}
+.reel .slides figure{position:absolute;inset:0;margin:0;visibility:hidden;background:var(--ink)}
 .reel .slides figure.on{visibility:visible}
 /* still images grow slightly while on screen; videos and the 3D book stay as they are */
 .reel .slides figure>img{transform:scale(1);transform-origin:50% 50%}
@@ -98,7 +98,7 @@ a.row:hover,a.row:focus-visible,a.card:hover,a.card:focus-visible,a.next:hover,a
 .card .img iframe,.peek iframe{width:100%;height:100%;border:0;display:block;pointer-events:none;background:#050505}
 .peek iframe{aspect-ratio:4/3;height:auto}
 .reel .slides iframe{width:100%;height:100%;border:0;display:block;pointer-events:none;background:#050505}
-.reel .slides img,.reel .slides video{width:100%;height:100%;object-fit:cover;background:#000}
+.reel .slides img,.reel .slides video{width:100%;height:100%;object-fit:contain;background:var(--ink)}   /* each work whole, in its own proportion */
 .reel .count{position:absolute;right:clamp(14px,2vw,24px);bottom:10px;color:#fff;mix-blend-mode:difference;font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(20px,2.2vw,34px);line-height:1;font-variant-numeric:lining-nums}
 
 /* intro line under reel */
@@ -388,7 +388,6 @@ html,body{overflow-x:clip}
 .bar a{white-space:nowrap}
 /* the typehane wordmark: Geist regular, lowercase, tight */
 .bar a.brand{font-family:var(--display);font-weight:400;font-size:20px;letter-spacing:-.03em;text-transform:none;line-height:1}
-.bar a.brand b,.mark b,.care p.care-mark b{font-weight:700}   /* 3a: type bold, hane regular */
 .about-end{padding-bottom:clamp(40px,8vw,120px)}
 #cv{margin-left:25%}
 #cv .group{margin-top:clamp(64px,9vw,140px)}
@@ -397,20 +396,24 @@ html,body{overflow-x:clip}
 /* contact page: title, one short line, the email large, place small */
 .contact-page{padding-block:clamp(40px,7vw,110px) clamp(80px,14vw,200px)}
 .c-lead{margin:0;font-size:clamp(22px,2.6vw,40px);line-height:1.08;letter-spacing:-.03em;max-width:26em;text-wrap:pretty}
-.c-info{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 16px;margin-top:clamp(56px,8vw,120px);border-top:1px solid var(--line);padding-top:12px}
-.c-item{display:flex;flex-direction:column;gap:10px;min-width:0}
+.c-info{margin-left:25%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px 16px;margin-top:clamp(56px,8vw,120px);border-top:1px solid var(--line);padding-top:12px}
+.c-item{display:flex;flex-direction:column;gap:14px;min-width:0}
 .c-item p{margin:0;font-size:clamp(17px,1.5vw,22px);line-height:1.2;letter-spacing:-.015em}
 .c-link{color:inherit;text-decoration:none}
 a.c-link:hover,a.c-link:focus-visible{font-family:var(--serif);font-style:italic;font-weight:300;letter-spacing:0;font-size-adjust:ex-height .56;-webkit-text-stroke:.012em currentColor;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.14em}
 .contact-page #copy{vertical-align:middle;margin-left:.6em;background:none;border:0;padding:0;color:var(--mute);cursor:pointer}
 .contact-page #copy:hover{color:var(--fg)}
-@media (max-width:700px){.c-info{grid-template-columns:1fr}}
+/* like About: the details start a quarter in; email on the left, address further right */
+.c-item:first-child{grid-column:1 / span 2}
+.c-item+.c-item{grid-column:3 / span 2}
+.c-lead-in{display:block;margin-bottom:.35em}
+@media (max-width:700px){.c-info{margin-left:0;grid-template-columns:1fr}.c-item:first-child,.c-item+.c-item{grid-column:auto}}
 .contact-line button{background:none;border:0;padding:0;color:var(--mute);cursor:pointer}
 
 @media (max-width:1180px){.bar .mid{display:none}.bar{grid-template-columns:1fr auto}}
 @media (max-width:820px){.bar{mix-blend-mode:normal;background:var(--ink);top:env(safe-area-inset-top,0px)}}   /* phone: solid menu bar so scrolling text never runs under it */
 @media (max-width:820px){
-  .reel{aspect-ratio:4/5}
+  .reel{aspect-ratio:4/5;width:100%}
   .thesis p{grid-column:1 / -1}
   .thesis .side{grid-column:1 / -1}
   .row .t{grid-column:1 / -1}
@@ -444,7 +447,7 @@ a.c-link:hover,a.c-link:focus-visible{font-family:var(--serif);font-style:italic
 <body>
 
 <header class="bar wrap label">
-  <a href="#" data-home class="brand"><b>type</b>hane</a>
+  <a href="#" data-home class="brand">typehane</a>
   <span class="mid">Visual communication / Design</span>
   <nav aria-label="Main"><a href="#works">Works</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
 </header>
@@ -452,7 +455,7 @@ a.c-link:hover,a.c-link:focus-visible{font-family:var(--serif);font-style:italic
 <!-- HOME -->
 <main id="home" class="view">
   <div class="wrap">
-    <h1 class="mark" id="mark"><span><b>type</b>hane</span></h1>
+    <h1 class="mark" id="mark"><span>typehane</span></h1>
 
     <div class="reel" id="reel" role="region" aria-label="Selected work reel">
       <div class="slides" id="slides"></div>
@@ -472,7 +475,7 @@ a.c-link:hover,a.c-link:focus-visible{font-family:var(--serif);font-style:italic
 <main id="works" class="view" hidden>
   <div class="wrap">
     <div class="works-head">
-      <h1>works<span class="sup" id="worksCount"></span></h1>
+      <h1>Works<span class="sup" id="worksCount"></span></h1>
       <!-- category filters hidden for now; to bring them back, restore: <div class="filters" id="filters" role="group" aria-label="Filter works by category"></div> -->
 <div class="filters" id="filters" hidden style="display:none"></div>
     </div>
@@ -483,7 +486,7 @@ a.c-link:hover,a.c-link:focus-visible{font-family:var(--serif);font-style:italic
 <!-- ABOUT -->
 <main id="about" class="view" hidden>
   <div class="wrap">
-    <div class="works-head"><h1>about</h1></div>
+    <div class="works-head"><h1>About</h1></div>
     <section class="thesis">
       <p>Typehane is a studio for visual communication and design based in Luxembourg, founded by Karya Anliak.</p>
     </section>
@@ -494,12 +497,12 @@ a.c-link:hover,a.c-link:focus-visible{font-family:var(--serif);font-style:italic
 <!-- CONTACT -->
 <main id="contact" class="view" hidden>
   <div class="wrap">
-    <div class="works-head"><h1>contact</h1></div>
+    <div class="works-head"><h1>Contact</h1></div>
     <div class="contact-page">
       <p class="c-lead">Typehane is a studio for visual communication and design based in Luxembourg.</p>
       <div class="c-info">
-        <div class="c-item"><span class="label mute">Email</span><p><a class="c-link" id="mail" href="mailto:info@typehane.com">info@typehane.com</a> <button type="button" id="copy" class="txt label">Copy</button></p></div>
-        <div class="c-item"><span class="label mute">Address</span><p><a class="c-link" href="https://maps.google.com/?q=Avenue+Lucien+Salentiny+Ettelbruck+Luxembourg" target="_blank" rel="noopener">Avenue Lucien Salentiny<br>Ettelbruck, Luxembourg</a></p></div>
+        <div class="c-item"><span class="label mute">Email</span><p><span class="c-lead-in">Send us an email at:</span><a class="c-link" id="mail" href="mailto:info@typehane.com">info@typehane.com</a> <button type="button" id="copy" class="txt label">Copy</button></p></div>
+        <div class="c-item"><span class="label mute">Address</span><p><span class="c-lead-in">Find us at:</span><a class="c-link" href="https://maps.google.com/?q=Avenue+Lucien+Salentiny+Ettelbruck+Luxembourg" target="_blank" rel="noopener">Avenue Lucien Salentiny<br>Ettelbruck, Luxembourg</a></p></div>
       </div>
     </div>
   </div>
@@ -508,7 +511,7 @@ a.c-link:hover,a.c-link:focus-visible{font-family:var(--serif);font-style:italic
 <footer class="foot wrap">
   <div class="big"><a href="#works">Works</a><a href="#about">About</a><a href="#contact">Contact</a></div>
   <div class="meta label mute"><span>info@typehane.com</span></div>
-  <div class="care"><p class="care-mark"><b>type</b>hane</p></div>
+  <div class="care"><p class="care-mark">typehane</p></div>
   <div class="foot-end"><span>Luxembourg</span><span>©2026 Typehane. All Rights Reserved.</span><span class="foot-r"><a class="ig" href="https://www.instagram.com/karya.anliak/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></svg></a><a href="#" class="totop" onclick="event.preventDefault();window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})">Back to top <svg viewBox="0 0 12 14" aria-hidden="true"><path d="M6 13V1.5M1.5 6 6 1.5 10.5 6"/></svg></a></span></div>
 </footer>
 
@@ -739,10 +742,13 @@ function homeGrid(){
   fillGrid($('#homeGrid'),()=>'#works');
   watchVideos($('#homeGrid'));
 }
+/* projects left out of Selected Works on the home page (they stay in Works) */
+const NOT_SELECTED=['essay-matter','stone-archive','flux-on','ocak'];
 function buildIndex(){
-  let html=`<div class="sel-head"><h2>Selected Works<span class="sup">(${String(P.length).padStart(2,'0')})</span></h2><a class="label" href="#works">All works →</a></div>`;
+  const SP=P.filter(p=>!NOT_SELECTED.includes(p.id));
+  let html=`<div class="sel-head"><h2>Selected Works<span class="sup">(${String(SP.length).padStart(2,'0')})</span></h2><a class="label" href="#works">All works →</a></div>`;
   html+=`<div class="group"><div class="label mute"><span>Project</span><span>Type, year</span></div>`;
-  P.forEach(p=>{
+  SP.forEach(p=>{
     html+=`<a class="row" href="#${p.id}" data-id="${p.id}"><span class="t">${esc(p.title)}</span><span class="y">${esc(p.type)}${p.year?'<br>'+p.year:''}</span></a>`;
   });
   html+='</div>';
@@ -766,7 +772,7 @@ function buildIndex(){
   const BIG={'stone-archive':1.18};
   const ext=(el,side)=>{const rg=document.createRange();rg.selectNodeContents(el);const b=rg.getBoundingClientRect();return side?b.right:b.left};
   const place=(r,f)=>{
-    const g=grp.getBoundingClientRect(), rows=[...grp.querySelectorAll('.row')], i=P.findIndex(p=>p.id===r.dataset.id);
+    const g=grp.getBoundingClientRect(), rows=[...grp.querySelectorAll('.row')], i=SP.findIndex(p=>p.id===r.dataset.id);
     const bottom=r.offsetTop+r.offsetHeight;
     let w=Math.min(innerWidth*.30,440)*(BIG[r.dataset.id]||1), x=0;
     for(let k=0;k<3;k++){
@@ -1098,8 +1104,9 @@ document.addEventListener('click',e=>{
   if(a.dataset.jump) pendingJump=a.dataset.jump;
   if(a.hasAttribute('data-home')){
     e.preventDefault();
-    if(location.hash&&location.hash!=='#'){history.pushState(null,'',location.pathname+location.search);}
+    if(location.hash&&location.hash!=='#') location.hash='';   /* works in every viewer, including framed previews */
     route();
+    window.scrollTo(0,0);
   } else if(location.hash===a.getAttribute('href')){e.preventDefault();route();}
 });
 addEventListener('hashchange',route);
